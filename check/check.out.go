@@ -234,6 +234,82 @@ func MustNotNilf(t Fatal, v any, format string, args ...any) {
 	}
 }
 
+// Check that v is the zero value for its type.
+func Zero(t Error, v any) bool {
+	if msg, ok := checkZero(v); !ok {
+		t.Helper()
+		t.Error("\n" + msg)
+		return false
+	}
+
+	return true
+}
+
+// Check that v is the zero value for its type.
+func Zerof(t Error, v any, format string, args ...any) bool {
+	if msg, ok := checkZero(v); !ok {
+		t.Helper()
+		t.Error(fmt.Sprintf(format, args...) + "\n" + msg)
+		return false
+	}
+
+	return true
+}
+
+// Check that v is the zero value for its type.
+func MustZero(t Fatal, v any) {
+	if msg, ok := checkZero(v); !ok {
+		t.Helper()
+		t.Fatal("\n" + msg)
+	}
+}
+
+// Check that v is the zero value for its type.
+func MustZerof(t Fatal, v any, format string, args ...any) {
+	if msg, ok := checkZero(v); !ok {
+		t.Helper()
+		t.Fatal(fmt.Sprintf(format, args...) + "\n" + msg)
+	}
+}
+
+// Check that v is not the zero value for its type.
+func NotZero(t Error, v any) bool {
+	if msg, ok := checkNotZero(v); !ok {
+		t.Helper()
+		t.Error("\n" + msg)
+		return false
+	}
+
+	return true
+}
+
+// Check that v is not the zero value for its type.
+func NotZerof(t Error, v any, format string, args ...any) bool {
+	if msg, ok := checkNotZero(v); !ok {
+		t.Helper()
+		t.Error(fmt.Sprintf(format, args...) + "\n" + msg)
+		return false
+	}
+
+	return true
+}
+
+// Check that v is not the zero value for its type.
+func MustNotZero(t Fatal, v any) {
+	if msg, ok := checkNotZero(v); !ok {
+		t.Helper()
+		t.Fatal("\n" + msg)
+	}
+}
+
+// Check that v is not the zero value for its type.
+func MustNotZerof(t Fatal, v any, format string, args ...any) {
+	if msg, ok := checkNotZero(v); !ok {
+		t.Helper()
+		t.Fatal(fmt.Sprintf(format, args...) + "\n" + msg)
+	}
+}
+
 // Check that [errors.Is] returns true.
 func ErrIs(t Error, err, target error) bool {
 	if msg, ok := checkErrIs(err, target); !ok {

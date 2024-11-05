@@ -121,6 +121,18 @@ var funcs = []Func{
 		Doc:   "Check that v is not nil. This is a strict equality check.",
 	},
 	{
+		Name:  "Zero",
+		Args:  "v any",
+		Check: "checkZero(v)",
+		Doc:   "Check that v is the zero value for its type.",
+	},
+	{
+		Name:  "NotZero",
+		Args:  "v any",
+		Check: "checkNotZero(v)",
+		Doc:   "Check that v is not the zero value for its type.",
+	},
+	{
 		Name:  "ErrIs",
 		Args:  "err, target error",
 		Check: "checkErrIs(err, target)",

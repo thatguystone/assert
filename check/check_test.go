@@ -60,6 +60,22 @@ func TestCheckNotNil(t *testing.T) {
 	testCheck(checkNotNil(nil))(t, false)
 }
 
+func TestCheckZero(t *testing.T) {
+	testCheck(checkZero(nil))(t, true)
+	testCheck(checkZero(0))(t, true)
+	testCheck(checkZero((*int)(nil)))(t, true)
+	testCheck(checkZero(1))(t, false)
+	testCheck(checkZero(new(int)))(t, false)
+}
+
+func TestCheckNotZero(t *testing.T) {
+	testCheck(checkNotZero(1))(t, true)
+	testCheck(checkNotZero(new(int)))(t, true)
+	testCheck(checkNotZero(nil))(t, false)
+	testCheck(checkNotZero(0))(t, false)
+	testCheck(checkNotZero((*int)(nil)))(t, false)
+}
+
 func TestCheckErrIs(t *testing.T) {
 	err := &os.PathError{
 		Op:   "test",

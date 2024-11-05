@@ -133,6 +133,24 @@ func checkNotNil(v any) (string, bool) {
 	return "Expected something, got nil", false
 }
 
+func checkZero(v any) (string, bool) {
+	rv := reflect.ValueOf(v)
+	if !rv.IsValid() || rv.IsZero() {
+		return "", true
+	}
+
+	return equalMsg(v, reflect.Zero(rv.Type()).Interface()), false
+}
+
+func checkNotZero(v any) (string, bool) {
+	rv := reflect.ValueOf(v)
+	if rv.IsValid() && !rv.IsZero() {
+		return "", true
+	}
+
+	return "Expected something, got {}", false
+}
+
 func checkErrIs(err, target error) (string, bool) {
 	if errors.Is(err, target) {
 		return "", true
